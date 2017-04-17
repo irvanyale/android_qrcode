@@ -1,18 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.irvanyale.app.qrcode.LoginActivity">
+    tools:context="com.irvanyale.app.qrcode.LoginActivity"
+    android:theme="@style/Base.ThemeOverlay.AppCompat.Dark"
+    android:orientation="vertical"
+    android:background="@android:color/white">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_store"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"/>
 
-</android.support.constraint.ConstraintLayout>
+    <EditText
+        android:id="@+id/edtx_email"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_gravity="center"
+        android:hint="Email"
+        android:textColorHint="@color/colorGreyDark"
+        android:textColor="@color/colorGreyDark"
+        android:background="@drawable/rounded_edittext"
+        android:layout_marginBottom="20dp"/>
+
+    <EditText
+        android:id="@+id/edtx_password"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:inputType="textPassword"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Password"
+        android:textColorHint="@color/colorGreyDark"
+        android:textColor="@color/colorGreyDark"
+        android:layout_marginBottom="40dp"/>
+
+    <Button
+        android:id="@+id/bttn_masuk"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:text="MASUK"
+        android:background="@drawable/rounded_button_login"/>
+
+</LinearLayout>
