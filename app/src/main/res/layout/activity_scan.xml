@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,9 +9,11 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rlly_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
+        android:layout_alignParentTop="true"
         android:layout_marginBottom="20dp">
 
         <ImageView
@@ -35,6 +37,7 @@
 
     <RelativeLayout
         android:id="@+id/rlly_qrcode"
+        android:layout_below="@+id/rlly_header"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginLeft="20dp"
@@ -52,6 +55,7 @@
 
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:id="@+id/zxing_barcode_scanner"
+        android:layout_below="@+id/rlly_header"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginLeft="20dp"
@@ -62,19 +66,25 @@
 
     <TextView
         android:id="@+id/txvw_nama_item"
+        android:layout_above="@+id/bttn_scan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="13sp"
         android:textColor="@color/colorMainDark"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:id="@+id/bttn_scan"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
         android:text="SCAN"/>
 
-</LinearLayout>
+</RelativeLayout>

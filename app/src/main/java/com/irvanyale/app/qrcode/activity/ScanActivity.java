@@ -1,12 +1,17 @@
 package com.irvanyale.app.qrcode.activity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -59,6 +64,46 @@ public class ScanActivity extends AppCompatActivity {
         scanner.pause();
     }
 
+    private ImageView imgv_close;
+    private ImageView imgv_item;
+    private ImageView imgv_up;
+    private ImageView imgv_down;
+    private TextView txvw_qty;
+    private TextView item_harga;
+    private TextView item_nama;
+    private TextView item_distributor;
+    private TextView item_masa_berlaku;
+    private TextView item_tanggal_masuk_barang;
+    private TextView item_berat;
+    private TextView item_stok;
+    private Dialog dialogItem = null;
+    private void showDialogDetailItem(){
+        dialogItem = new Dialog(ScanActivity.this, R.style.Theme_Dialog_Fullscreen_Margin);
+        dialogItem.setContentView(R.layout.dialog_detail_item);
+
+        Window window = dialogItem.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.CENTER;
+        window.setAttributes(wlp);
+
+        dialogItem.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                dialogItem = null;
+            }
+        });
+
+        dialogItem.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                dialogItem = null;
+            }
+        });
+
+        dialogItem.setCanceledOnTouchOutside(true);
+        dialogItem.show();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -92,7 +137,17 @@ public class ScanActivity extends AppCompatActivity {
                     try{
                         JSONObject obj = new JSONObject(result.getResult().toString());
 
-                        txvw_nama_item.setText(obj.getString("nama"));
+                        txvw_nama_item.setVisibility(View.VISIBLE);
+                        txvw_nama_item.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showDialogDetailItem();
+                            }
+                        });
+
+                        txvw_nama_item.setText(obj.getString("nama_barang"));
+                        Log.d(TAG, "barcodeResult: "+obj.toString());
+
                     } catch (JSONException e){
                         e.printStackTrace();
                         Log.d(TAG, "Result "+result.getResult().toString());
