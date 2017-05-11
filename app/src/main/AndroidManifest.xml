@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.irvanyale.app.qrcode">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -22,7 +22,8 @@
         <activity android:name=".MainMenuActivity" />
         <activity android:name=".activity.ScanActivity" />
         <activity android:name=".activity.PengaturanActivity" />
-        <activity android:name=".activity.DaftarBelanjaActivity"></activity>
+        <activity android:name=".activity.DaftarBelanjaActivity" />
+        <activity android:name=".activity.PembayaranActivity"></activity>
     </application>
 
 </manifest>

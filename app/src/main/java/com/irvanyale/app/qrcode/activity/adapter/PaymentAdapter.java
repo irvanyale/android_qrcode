@@ -14,15 +14,15 @@ import com.irvanyale.app.qrcode.util.Util;
 import java.util.List;
 
 /**
- * Created by WINDOWS 10 on 10/05/2017.
+ * Created by WINDOWS 10 on 11/05/2017.
  */
 
-public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHolder>{
+public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder>{
 
     private Context context;
     private List<Item> listItem;
 
-    public ItemCartAdapter(Context context, List<Item> listItem) {
+    public PaymentAdapter(Context context, List<Item> listItem) {
         this.context = context;
         this.listItem = listItem;
     }
@@ -34,20 +34,21 @@ public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView item_nama;
-        private TextView item_harga;
         private TextView item_qty;
+        private TextView item_harga;
 
         public ViewHolder(View itemView) {
             super(itemView);
+
             item_nama = (TextView) itemView.findViewById(R.id.item_nama);
-            item_harga = (TextView) itemView.findViewById(R.id.item_harga);
             item_qty = (TextView) itemView.findViewById(R.id.item_qty);
+            item_harga = (TextView) itemView.findViewById(R.id.item_harga);
         }
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.list_item_cart, parent, false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.list_payment, parent, false);
         return new ViewHolder(view);
     }
 
@@ -55,8 +56,8 @@ public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         Item item = listItem.get(position);
         holder.item_nama.setText(item.getNama_barang());
-        holder.item_harga.setText("Rp " + Util.convertToCurrency(item.getHarga()));
         holder.item_qty.setText(item.getQty()+"");
+        holder.item_harga.setText("Rp " + Util.convertToCurrency(item.getHarga()));
     }
 
     @Override

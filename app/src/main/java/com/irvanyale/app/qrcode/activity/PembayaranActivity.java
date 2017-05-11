@@ -11,43 +11,43 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.irvanyale.app.qrcode.R;
-import com.irvanyale.app.qrcode.activity.adapter.ItemCartAdapter;
+import com.irvanyale.app.qrcode.activity.adapter.PaymentAdapter;
 import com.irvanyale.app.qrcode.helper.CartHelper;
 import com.irvanyale.app.qrcode.model.Item;
 import com.irvanyale.app.qrcode.util.Util;
 
 import java.util.List;
 
-public class DaftarBelanjaActivity extends AppCompatActivity {
+public class PembayaranActivity extends AppCompatActivity {
 
     private ImageView imgv_back;
     private TextView txvw_total;
-    private Button btn_checkout;
+    private Button bttn_back;
     private RecyclerView rv_listItem;
-    private ItemCartAdapter itemCartAdapter;
+    private PaymentAdapter paymentAdapter;
     private List<Item> cart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_daftar_belanja);
+        setContentView(R.layout.activity_pembayaran);
 
         imgv_back = (ImageView)findViewById(R.id.imgv_back);
         txvw_total = (TextView) findViewById(R.id.txvw_total);
-        btn_checkout = (Button) findViewById(R.id.btn_checkout);
+        bttn_back = (Button) findViewById(R.id.bttn_back);
         rv_listItem = (RecyclerView)findViewById(R.id.rv_listItem);
 
         cart = CartHelper.getOrder();
 
-        itemCartAdapter = new ItemCartAdapter(this, cart);
+        paymentAdapter = new PaymentAdapter(this, cart);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rv_listItem.setLayoutManager(linearLayoutManager);
-        rv_listItem.setAdapter(itemCartAdapter);
+        rv_listItem.setAdapter(paymentAdapter);
 
-        txvw_total.setText("Rp " + Util.convertToCurrency(getTotalHarga()));
+        txvw_total.setText("Total : Rp " + Util.convertToCurrency(getTotalHarga()));
 
         imgv_back.setOnClickListener(_handler);
-        btn_checkout.setOnClickListener(_handler);
+        bttn_back.setOnClickListener(_handler);
     }
 
     private String getTotalHarga(){
@@ -67,8 +67,8 @@ public class DaftarBelanjaActivity extends AppCompatActivity {
                 case R.id.imgv_back:
                     finish();
                     break;
-                case R.id.btn_checkout:
-                    startActivity(new Intent(DaftarBelanjaActivity.this, PembayaranActivity.class));
+                case R.id.bttn_back:
+                    startActivity(new Intent(PembayaranActivity.this, ScanActivity.class));
                     break;
             }
         }

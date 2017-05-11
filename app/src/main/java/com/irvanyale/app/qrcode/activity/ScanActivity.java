@@ -41,6 +41,7 @@ public class ScanActivity extends AppCompatActivity {
     private static final String TAG = "ScanActivity";
     private ImageView imgv_back;
     private TextView counter_cart;
+    private RelativeLayout rlly_cart;
     private RelativeLayout rlly_qrcode;
     private TextView txvw_nama_item;
     private Button bttn_scan;
@@ -55,7 +56,7 @@ public class ScanActivity extends AppCompatActivity {
     private String masaBerlakuItem;
     private String distributorItem;
     private String stokItem;
-    private int qtyItem;
+    private int qtyItem = 1;
     private String imgItem;
     private List<Item> cart;
 
@@ -66,6 +67,7 @@ public class ScanActivity extends AppCompatActivity {
 
         imgv_back = (ImageView)findViewById(R.id.imgv_back);
         counter_cart = (TextView)findViewById(R.id.counter_cart);
+        rlly_cart = (RelativeLayout)findViewById(R.id.rlly_cart);
         rlly_qrcode = (RelativeLayout)findViewById(R.id.rlly_qrcode);
         scanner = (DecoratedBarcodeView)findViewById(R.id.zxing_barcode_scanner);
         txvw_nama_item = (TextView)findViewById(R.id.txvw_nama_item);
@@ -74,6 +76,7 @@ public class ScanActivity extends AppCompatActivity {
         beepManager = new BeepManager(this);
 
         imgv_back.setOnClickListener(_handler);
+        rlly_cart.setOnClickListener(_handler);
         bttn_scan.setOnClickListener(_handler);
         bttn_add.setOnClickListener(_handler);
 
@@ -174,6 +177,7 @@ public class ScanActivity extends AppCompatActivity {
                     counter_cart.setText(String.valueOf(cart.size()));
                     txvw_nama_item.setVisibility(View.GONE);
                     bttn_add.setVisibility(View.GONE);
+                    dialogItem.dismiss();
                 }
             }
         });
@@ -212,13 +216,13 @@ public class ScanActivity extends AppCompatActivity {
         Item item = new Item();
         item.setId_barang(idItem);
         item.setNama_barang(namaItem);
-        item.setHarga(hargaItem);
+        item.setHarga(String.valueOf(Integer.parseInt(hargaItem)*qty));
         item.setBerat(beratItem);
         item.setTanggal_masuk_barang(tglProduksiItem);
         item.setMasa_berlaku(masaBerlakuItem);
         item.setDistributor(distributorItem);
         item.setStok(stokItem);
-        item.setQty(qtyItem);
+        item.setQty(qty);
         return item;
     }
 
@@ -256,6 +260,8 @@ public class ScanActivity extends AppCompatActivity {
                 } else {
                     try{
                         JSONObject obj = new JSONObject(result.getResult().toString());
+
+                        qty = 1;
 
                         idItem = obj.getString("id_barang");
                         namaItem = obj.getString("nama_barang");
@@ -301,7 +307,7 @@ public class ScanActivity extends AppCompatActivity {
                 case R.id.imgv_back:
                     finish();
                     break;
-                case R.id.counter_cart:
+                case R.id.rlly_cart:
                     startActivity(new Intent(ScanActivity.this, DaftarBelanjaActivity.class));
                     break;
                 case R.id.bttn_scan:
