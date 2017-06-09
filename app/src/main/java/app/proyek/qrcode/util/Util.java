@@ -1,4 +1,4 @@
-package com.irvanyale.app.qrcode.util;
+package app.proyek.qrcode.util;
 
 import java.text.DecimalFormat;
 

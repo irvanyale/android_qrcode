@@ -1,11 +1,11 @@
-package com.irvanyale.app.qrcode.activity;
+package app.proyek.qrcode.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.irvanyale.app.qrcode.R;
+import app.proyek.qrcode.R;
 
 public class PengaturanActivity extends AppCompatActivity {
 

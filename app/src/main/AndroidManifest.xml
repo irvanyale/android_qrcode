@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.irvanyale.app.qrcode">
+    package="app.proyek.qrcode">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -12,18 +12,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity android:name="app.proyek.qrcode.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainMenuActivity" />
-        <activity android:name=".activity.ScanActivity" />
-        <activity android:name=".activity.PengaturanActivity" />
-        <activity android:name=".activity.DaftarBelanjaActivity" />
-        <activity android:name=".activity.PembayaranActivity"></activity>
+        <activity android:name="app.proyek.qrcode.MainMenuActivity" />
+        <activity android:name="app.proyek.qrcode.activity.ScanActivity" />
+        <activity android:name="app.proyek.qrcode.activity.PengaturanActivity" />
+        <activity android:name="app.proyek.qrcode.activity.DaftarBelanjaActivity" />
+        <activity android:name="app.proyek.qrcode.activity.PembayaranActivity"></activity>
     </application>
 
 </manifest>

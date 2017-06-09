@@ -1,4 +1,4 @@
-package com.irvanyale.app.qrcode;
+package app.irvanyale.app.qrcode;
 
 import org.junit.Test;
 

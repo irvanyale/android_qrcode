@@ -1,6 +1,6 @@
-package com.irvanyale.app.qrcode.helper;
+package app.proyek.qrcode.helper;
 
-import com.irvanyale.app.qrcode.model.Item;
+import app.proyek.qrcode.model.Item;
 
 import java.util.List;
 import java.util.Vector;

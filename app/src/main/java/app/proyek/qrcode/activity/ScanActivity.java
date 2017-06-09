@@ -1,4 +1,4 @@
-package com.irvanyale.app.qrcode.activity;
+package app.proyek.qrcode.activity;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,15 +19,13 @@ import android.widget.Toast;
 
 import com.google.zxing.ResultPoint;
 import com.google.zxing.client.android.BeepManager;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
-import com.irvanyale.app.qrcode.R;
-import com.irvanyale.app.qrcode.helper.CartHelper;
-import com.irvanyale.app.qrcode.model.Item;
-import com.irvanyale.app.qrcode.util.Util;
+
+import app.proyek.qrcode.R;
+import app.proyek.qrcode.helper.CartHelper;
+import app.proyek.qrcode.model.Item;
+import app.proyek.qrcode.util.Util;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
-import com.journeyapps.barcodescanner.CaptureManager;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
 import org.json.JSONException;

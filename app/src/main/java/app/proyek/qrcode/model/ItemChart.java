@@ -1,4 +1,4 @@
-package com.irvanyale.app.qrcode.model;
+package app.proyek.qrcode.model;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.irvanyale.app.qrcode.activity.adapter;
+package app.proyek.qrcode.activity.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.irvanyale.app.qrcode.R;
-import com.irvanyale.app.qrcode.model.Item;
-import com.irvanyale.app.qrcode.util.Util;
+import app.proyek.qrcode.R;
+import app.proyek.qrcode.model.Item;
+import app.proyek.qrcode.util.Util;
 
 import java.util.List;
 

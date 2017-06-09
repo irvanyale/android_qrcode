@@ -1,4 +1,4 @@
-package com.irvanyale.app.qrcode;
+package app.irvanyale.app.qrcode;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

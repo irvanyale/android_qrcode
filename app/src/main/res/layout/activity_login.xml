@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.irvanyale.app.qrcode.LoginActivity"
+    tools:context="com.irvanyale.app.qrcode.app.irvanyale.app.qrcode.LoginActivity"
     android:theme="@style/Base.ThemeOverlay.AppCompat.Dark"
     android:orientation="vertical"
     android:background="@android:color/white">

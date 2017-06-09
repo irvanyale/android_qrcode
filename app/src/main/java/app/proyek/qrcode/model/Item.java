@@ -1,4 +1,4 @@
-package com.irvanyale.app.qrcode.model;
+package app.proyek.qrcode.model;
 
 /**
  * Created by WINDOWS 10 on 02/04/2017.

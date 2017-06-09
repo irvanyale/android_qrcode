@@ -1,4 +1,4 @@
-package com.irvanyale.app.qrcode.activity;
+package app.proyek.qrcode.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,44 +10,44 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.irvanyale.app.qrcode.R;
-import com.irvanyale.app.qrcode.activity.adapter.PaymentAdapter;
-import com.irvanyale.app.qrcode.helper.CartHelper;
-import com.irvanyale.app.qrcode.model.Item;
-import com.irvanyale.app.qrcode.util.Util;
+import app.proyek.qrcode.R;
+import app.proyek.qrcode.activity.adapter.ItemCartAdapter;
+import app.proyek.qrcode.helper.CartHelper;
+import app.proyek.qrcode.model.Item;
+import app.proyek.qrcode.util.Util;
 
 import java.util.List;
 
-public class PembayaranActivity extends AppCompatActivity {
+public class DaftarBelanjaActivity extends AppCompatActivity {
 
     private ImageView imgv_back;
     private TextView txvw_total;
-    private Button bttn_back;
+    private Button btn_checkout;
     private RecyclerView rv_listItem;
-    private PaymentAdapter paymentAdapter;
+    private ItemCartAdapter itemCartAdapter;
     private List<Item> cart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pembayaran);
+        setContentView(R.layout.activity_daftar_belanja);
 
         imgv_back = (ImageView)findViewById(R.id.imgv_back);
         txvw_total = (TextView) findViewById(R.id.txvw_total);
-        bttn_back = (Button) findViewById(R.id.bttn_back);
+        btn_checkout = (Button) findViewById(R.id.btn_checkout);
         rv_listItem = (RecyclerView)findViewById(R.id.rv_listItem);
 
         cart = CartHelper.getOrder();
 
-        paymentAdapter = new PaymentAdapter(this, cart);
+        itemCartAdapter = new ItemCartAdapter(this, cart);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rv_listItem.setLayoutManager(linearLayoutManager);
-        rv_listItem.setAdapter(paymentAdapter);
+        rv_listItem.setAdapter(itemCartAdapter);
 
-        txvw_total.setText("Total : Rp " + Util.convertToCurrency(getTotalHarga()));
+        txvw_total.setText("Rp " + Util.convertToCurrency(getTotalHarga()));
 
         imgv_back.setOnClickListener(_handler);
-        bttn_back.setOnClickListener(_handler);
+        btn_checkout.setOnClickListener(_handler);
     }
 
     private String getTotalHarga(){
@@ -67,8 +67,8 @@ public class PembayaranActivity extends AppCompatActivity {
                 case R.id.imgv_back:
                     finish();
                     break;
-                case R.id.bttn_back:
-                    startActivity(new Intent(PembayaranActivity.this, ScanActivity.class));
+                case R.id.btn_checkout:
+                    startActivity(new Intent(DaftarBelanjaActivity.this, PembayaranActivity.class));
                     break;
             }
         }

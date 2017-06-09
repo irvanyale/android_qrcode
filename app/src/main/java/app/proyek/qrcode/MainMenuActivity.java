@@ -1,4 +1,4 @@
-package com.irvanyale.app.qrcode;
+package app.proyek.qrcode;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -6,14 +6,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.irvanyale.app.qrcode.activity.DaftarBelanjaActivity;
-import com.irvanyale.app.qrcode.activity.PengaturanActivity;
-import com.irvanyale.app.qrcode.activity.ScanActivity;
+
+import app.proyek.qrcode.R;
+import app.proyek.qrcode.activity.DaftarBelanjaActivity;
+import app.proyek.qrcode.activity.PengaturanActivity;
+import app.proyek.qrcode.activity.ScanActivity;
 
 public class MainMenuActivity extends AppCompatActivity {
 
