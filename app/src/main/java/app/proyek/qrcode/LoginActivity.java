@@ -22,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText edtx_password;
     private Button bttn_masuk;
     private ApiInterface client;
+    private SessionManagement session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         bttn_masuk = (Button) findViewById(R.id.bttn_masuk);
 
         client = ApiClient.createService(ApiInterface.class);
+        session = new SessionManagement(LoginActivity.this);
 
         bttn_masuk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +61,17 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.body() != null && response.isSuccessful()){
+                    User user = response.body();
+                    session.createLoginSession(
+                            user.getId_user(),
+                            user.getNama(),
+                            user.getAlamat(),
+                            user.getTtl(),
+                            user.getNo_hp(),
+                            user.getNo_ktp(),
+                            user.getUsername(),
+                            user.getPassword());
+                    session.checkLogin();
                     startActivity(new Intent(LoginActivity.this, MainMenuActivity.class));
                 } else {
                     Toast.makeText(LoginActivity.this, "Username atau Password salah", Toast.LENGTH_SHORT).show();
