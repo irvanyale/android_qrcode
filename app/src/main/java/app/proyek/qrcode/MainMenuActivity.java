@@ -21,6 +21,7 @@ public class MainMenuActivity extends AppCompatActivity {
     private LinearLayout lnly_daftarbelanja;
     private LinearLayout lnly_pengaturan;
     private LinearLayout lnly_logout;
+    private SessionManagement session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,8 @@ public class MainMenuActivity extends AppCompatActivity {
         lnly_daftarbelanja = (LinearLayout)findViewById(R.id.lnly_daftarbelanja);
         lnly_pengaturan = (LinearLayout)findViewById(R.id.lnly_pengaturan);
         lnly_logout = (LinearLayout)findViewById(R.id.lnly_logout);
+
+        session = new SessionManagement(MainMenuActivity.this);
 
         lnly_scan.setOnClickListener(_handler);
         lnly_daftarbelanja.setOnClickListener(_handler);
@@ -77,6 +80,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        session.logoutUser();
                         finish();
                     }
                 })

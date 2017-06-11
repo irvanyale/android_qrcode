@@ -7,36 +7,47 @@ import java.util.List;
  */
 
 public class ItemChart {
-    private String id;
-    private String status;
-    private String tanggal;
-    private List<Item> item;
+    private String id_user;
+    private String tanggal_transaksi;
+    private String total_harga;
+    private List<Item> items;
 
-    public String getId() {
-        return id;
+    public String getId_user() {
+        return id_user;
     }
 
-    public String getStatus() {
-        return status;
+    public String getTanggal_transaksi() {
+        return tanggal_transaksi;
     }
 
-    public String getTanggal() {
-        return tanggal;
+    public String getTotal_harga() {
+        return total_harga;
     }
 
-    public List<Item> getItem() {
-        return item;
+    public List<Item> getItems() {
+        return items;
     }
 
-    private class Item {
-        String id_barang;
-        String nama_barang;
-        String distributor;
-        String masa_berlaku;
-        String tanggal_masuk_barang;
-        String berat;
-        String harga;
-        String stok;
+    public void setId_user(String id_user) {
+        this.id_user = id_user;
+    }
+
+    public void setTanggal_transaksi(String tanggal_transaksi) {
+        this.tanggal_transaksi = tanggal_transaksi;
+    }
+
+    public void setTotal_harga(String total_harga) {
+        this.total_harga = total_harga;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public static class Item {
+        private String id_barang;
+        private String harga_barang;
+        private String jumlah_barang;
 
         public String getId_barang() {
             return id_barang;
@@ -46,60 +57,20 @@ public class ItemChart {
             this.id_barang = id_barang;
         }
 
-        public String getNama_barang() {
-            return nama_barang;
+        public String getHarga_barang() {
+            return harga_barang;
         }
 
-        public void setNama_barang(String nama_barang) {
-            this.nama_barang = nama_barang;
+        public void setHarga_barang(String harga_barang) {
+            this.harga_barang = harga_barang;
         }
 
-        public String getDistributor() {
-            return distributor;
+        public String getJumlah_barang() {
+            return jumlah_barang;
         }
 
-        public void setDistributor(String distributor) {
-            this.distributor = distributor;
-        }
-
-        public String getMasa_berlaku() {
-            return masa_berlaku;
-        }
-
-        public void setMasa_berlaku(String masa_berlaku) {
-            this.masa_berlaku = masa_berlaku;
-        }
-
-        public String getTanggal_masuk_barang() {
-            return tanggal_masuk_barang;
-        }
-
-        public void setTanggal_masuk_barang(String tanggal_masuk_barang) {
-            this.tanggal_masuk_barang = tanggal_masuk_barang;
-        }
-
-        public String getBerat() {
-            return berat;
-        }
-
-        public void setBerat(String berat) {
-            this.berat = berat;
-        }
-
-        public String getHarga() {
-            return harga;
-        }
-
-        public void setHarga(String harga) {
-            this.harga = harga;
-        }
-
-        public String getStok() {
-            return stok;
-        }
-
-        public void setStok(String stok) {
-            this.stok = stok;
+        public void setJumlah_barang(String jumlah_barang) {
+            this.jumlah_barang = jumlah_barang;
         }
     }
 }

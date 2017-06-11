@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.irvanyale.app.qrcode.app.irvanyale.app.qrcode.activity.PengaturanActivity"
     android:background="@android:color/white"
     android:orientation="vertical">
 
@@ -44,6 +43,5 @@
             android:src="@drawable/ic_account"/>
 
     </LinearLayout>
-
 
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import app.proyek.qrcode.R;
@@ -21,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText edtx_email;
     private EditText edtx_password;
     private Button bttn_masuk;
+    private ProgressBar progress_login;
     private ApiInterface client;
     private SessionManagement session;
 
@@ -31,7 +33,8 @@ public class LoginActivity extends AppCompatActivity {
 
         edtx_email = (EditText)findViewById(R.id.edtx_email);
         edtx_password = (EditText)findViewById(R.id.edtx_password);
-        bttn_masuk = (Button) findViewById(R.id.bttn_masuk);
+        bttn_masuk = (Button)findViewById(R.id.bttn_masuk);
+        progress_login = (ProgressBar) findViewById(R.id.progress_login);
 
         client = ApiClient.createService(ApiInterface.class);
         session = new SessionManagement(LoginActivity.this);
@@ -45,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (username.isEmpty() || password.isEmpty()){
                     Toast.makeText(LoginActivity.this, "Username atau Password kosong", Toast.LENGTH_SHORT).show();
                 } else {
+                    progress_login.setVisibility(View.VISIBLE);
+                    bttn_masuk.setVisibility(View.GONE);
                     User user = new User();
                     user.setUsername(username);
                     user.setPassword(password);
@@ -76,10 +81,14 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(LoginActivity.this, "Username atau Password salah", Toast.LENGTH_SHORT).show();
                 }
+                progress_login.setVisibility(View.GONE);
+                bttn_masuk.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+                progress_login.setVisibility(View.GONE);
+                bttn_masuk.setVisibility(View.VISIBLE);
                 Toast.makeText(LoginActivity.this, "Koneksi bermasalah", Toast.LENGTH_SHORT).show();
             }
         });
