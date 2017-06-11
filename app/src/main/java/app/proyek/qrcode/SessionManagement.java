@@ -19,15 +19,15 @@ public class SessionManagement {
     private static final String PREF_NAME = "BelanjaQRCode";
     private static final String IS_LOGIN = "IsLoggedIn";
     private static final String KEEP_LOGIN = "KeepLogin";
-    public static final String KEY_ID_USER = "id_member";
+    public static final String KEY_ID_USER = "id_user";
     public static final String KEY_NAMA = "nama";
-    public static final String KEY_ALAMAT = "password";
-    public static final String KEY_TTL = "email";
-    public static final String KEY_NO_HP = "telepon";
+    public static final String KEY_ALAMAT = "alamat";
+    public static final String KEY_TTL = "ttl";
+    public static final String KEY_NO_HP = "no_hp";
     public static final String KEY_EMAIL = "email";
-    public static final String KEY_NO_KTP = "kelamin";
-    public static final String KEY_USERNAME = "nomor_id";
-    public static final String KEY_PASSWORD = "status";
+    public static final String KEY_NO_KTP = "no_ktp";
+    public static final String KEY_USERNAME = "username";
+    public static final String KEY_PASSWORD = "password";
 
     public SessionManagement(Context context) {
         this.context = context;

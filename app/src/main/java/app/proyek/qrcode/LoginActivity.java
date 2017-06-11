@@ -78,7 +78,6 @@ public class LoginActivity extends AppCompatActivity {
                             user.getUsername(),
                             user.getPassword());
                     session.checkLogin();
-                    startActivity(new Intent(LoginActivity.this, MainMenuActivity.class));
                 } else {
                     Toast.makeText(LoginActivity.this, "Username atau Password salah", Toast.LENGTH_SHORT).show();
                 }

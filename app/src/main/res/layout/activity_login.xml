@@ -25,9 +25,9 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:layout_gravity="center"
-        android:hint="Email"
+        android:hint="Username"
         android:textColorHint="@color/colorGreyDark"
-        android:textColor="@color/colorGreyDark"
+        android:textColor="@android:color/black"
         android:background="@drawable/rounded_edittext"
         android:layout_marginBottom="20dp"/>
 
@@ -42,7 +42,7 @@
         android:background="@drawable/rounded_edittext"
         android:hint="Password"
         android:textColorHint="@color/colorGreyDark"
-        android:textColor="@color/colorGreyDark"
+        android:textColor="@android:color/black"
         android:layout_marginBottom="40dp"/>
 
     <Button

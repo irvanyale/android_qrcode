@@ -57,7 +57,7 @@ public class PengaturanActivity extends AppCompatActivity {
     private String no_ktp_e;
     private String username_e;
     private String password_e;
-    private int status;
+    private int status = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +107,44 @@ public class PengaturanActivity extends AppCompatActivity {
         no_ktp = user.get(SessionManagement.KEY_NO_KTP);
         username = user.get(SessionManagement.KEY_USERNAME);
         password = user.get(SessionManagement.KEY_PASSWORD);
+
+        edtx_nama.setText(nama);
+        edtx_alamat.setText(alamat);
+        edtx_ttl.setText(ttl);
+        edtx_no_hp.setText(no_hp);
+        edtx_email.setText(email);
+        edtx_no_ktp.setText(no_ktp);
+        edtx_username.setText(username);
+    }
+
+    private void updateProfile(){
+        SessionManagement session = new SessionManagement(this);
+
+        if (status == 1){
+            session.createLoginSession(
+                    id_user,
+                    nama_e,
+                    alamat_e,
+                    ttl_e,
+                    no_hp_e,
+                    email_e,
+                    no_ktp_e,
+                    username,
+                    password
+            );
+        } else {
+            session.createLoginSession(
+                    id_user,
+                    nama,
+                    alamat,
+                    ttl,
+                    no_hp,
+                    email,
+                    no_ktp,
+                    username_e,
+                    password_e
+            );
+        }
     }
 
     private void EditProfile(){
@@ -207,6 +245,10 @@ public class PengaturanActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.body() != null && response.isSuccessful()){
+                    edtx_password.setText("");
+                    edtx_repassword.setText("");
+                    updateProfile();
+                    getUserDetail();
                     Toast.makeText(PengaturanActivity.this, "Data berhasil diubah", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(PengaturanActivity.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
@@ -225,7 +267,16 @@ public class PengaturanActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.imgv_back:
-                    finish();
+                    if (status != 0) {
+                        bttn_profile.setVisibility(View.VISIBLE);
+                        bttn_password.setVisibility(View.VISIBLE);
+                        lnly_profile.setVisibility(View.GONE);
+                        lnly_password.setVisibility(View.GONE);
+                        bttn_submit.setVisibility(View.GONE);
+                    } else {
+                        finish();
+                    }
+                    status = 0;
                     break;
                 case R.id.bttn_profile:
                     EditProfile();
@@ -241,4 +292,18 @@ public class PengaturanActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        if (status != 0) {
+            bttn_profile.setVisibility(View.VISIBLE);
+            bttn_password.setVisibility(View.VISIBLE);
+            lnly_profile.setVisibility(View.GONE);
+            lnly_password.setVisibility(View.GONE);
+            bttn_submit.setVisibility(View.GONE);
+        } else {
+            super.onBackPressed();
+        }
+        status = 0;
+    }
 }
