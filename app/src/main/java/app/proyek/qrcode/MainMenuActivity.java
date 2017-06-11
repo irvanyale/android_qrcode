@@ -14,12 +14,14 @@ import app.proyek.qrcode.R;
 import app.proyek.qrcode.activity.DaftarBelanjaActivity;
 import app.proyek.qrcode.activity.PengaturanActivity;
 import app.proyek.qrcode.activity.ScanActivity;
+import app.proyek.qrcode.activity.TransaksiActivity;
 
 public class MainMenuActivity extends AppCompatActivity {
 
     private LinearLayout lnly_scan;
     private LinearLayout lnly_daftarbelanja;
     private LinearLayout lnly_pengaturan;
+    private LinearLayout lnly_bill;
     private LinearLayout lnly_logout;
     private SessionManagement session;
 
@@ -31,6 +33,7 @@ public class MainMenuActivity extends AppCompatActivity {
         lnly_scan = (LinearLayout)findViewById(R.id.lnly_scan);
         lnly_daftarbelanja = (LinearLayout)findViewById(R.id.lnly_daftarbelanja);
         lnly_pengaturan = (LinearLayout)findViewById(R.id.lnly_pengaturan);
+        lnly_bill = (LinearLayout)findViewById(R.id.lnly_bill);
         lnly_logout = (LinearLayout)findViewById(R.id.lnly_logout);
 
         session = new SessionManagement(MainMenuActivity.this);
@@ -38,6 +41,7 @@ public class MainMenuActivity extends AppCompatActivity {
         lnly_scan.setOnClickListener(_handler);
         lnly_daftarbelanja.setOnClickListener(_handler);
         lnly_pengaturan.setOnClickListener(_handler);
+        lnly_bill.setOnClickListener(_handler);
         lnly_logout.setOnClickListener(_handler);
     }
 
@@ -53,6 +57,9 @@ public class MainMenuActivity extends AppCompatActivity {
                     break;
                 case R.id.lnly_pengaturan:
                     startActivity(new Intent(MainMenuActivity.this, PengaturanActivity.class));
+                    break;
+                case R.id.lnly_bill:
+                    startActivity(new Intent(MainMenuActivity.this, TransaksiActivity.class));
                     break;
                 case R.id.lnly_logout:
                     showDialogLogout();
