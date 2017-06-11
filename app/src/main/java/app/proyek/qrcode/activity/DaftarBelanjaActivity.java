@@ -1,5 +1,6 @@
 package app.proyek.qrcode.activity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +72,7 @@ public class DaftarBelanjaActivity extends AppCompatActivity {
         imgv_back.setOnClickListener(_handler);
         btn_checkout.setOnClickListener(_handler);
     }
+
     private String getUserId(){
         SessionManagement session = new SessionManagement(this);
         HashMap<String, String> user = session.getUserDetails();
@@ -131,6 +134,10 @@ public class DaftarBelanjaActivity extends AppCompatActivity {
 
     private void doTransaksi(){
 
+        final ProgressDialog dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading...");
+        dialog.show();
+
         Call<Antrian> call = client.doTransaction(getDataTransaksi());
         call.enqueue(new Callback<Antrian>() {
             @Override
@@ -142,11 +149,13 @@ public class DaftarBelanjaActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(DaftarBelanjaActivity.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
                 }
+                dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<Antrian> call, Throwable t) {
                 Toast.makeText(DaftarBelanjaActivity.this, "Koneksi bermasalah", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
             }
         });
     }

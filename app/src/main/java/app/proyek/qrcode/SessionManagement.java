@@ -24,6 +24,7 @@ public class SessionManagement {
     public static final String KEY_ALAMAT = "password";
     public static final String KEY_TTL = "email";
     public static final String KEY_NO_HP = "telepon";
+    public static final String KEY_EMAIL = "email";
     public static final String KEY_NO_KTP = "kelamin";
     public static final String KEY_USERNAME = "nomor_id";
     public static final String KEY_PASSWORD = "status";
@@ -40,6 +41,7 @@ public class SessionManagement {
                                    String alamat,
                                    String ttl,
                                    String no_hp,
+                                   String email,
                                    String no_ktp,
                                    String username,
                                    String password){
@@ -49,6 +51,7 @@ public class SessionManagement {
         editor.putString(KEY_ALAMAT, alamat);
         editor.putString(KEY_TTL, ttl);
         editor.putString(KEY_NO_HP, no_hp);
+        editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_NO_KTP, no_ktp);
         editor.putString(KEY_USERNAME, username);
         editor.putString(KEY_PASSWORD, password);
@@ -63,6 +66,7 @@ public class SessionManagement {
         user.put(KEY_ALAMAT, pref.getString(KEY_ALAMAT, null));
         user.put(KEY_TTL, pref.getString(KEY_TTL, null));
         user.put(KEY_NO_HP, pref.getString(KEY_NO_HP, null));
+        user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
         user.put(KEY_NO_KTP, pref.getString(KEY_NO_KTP, null));
         user.put(KEY_USERNAME, pref.getString(KEY_USERNAME, null));
         user.put(KEY_PASSWORD, pref.getString(KEY_PASSWORD, null));

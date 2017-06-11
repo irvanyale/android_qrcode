@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/white"
-    tools:context="com.irvanyale.app.qrcode.app.irvanyale.app.qrcode.activity.PembayaranActivity">
+    android:background="@android:color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,16 +31,32 @@
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/bttn_back"
-        android:layout_width="180dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:background="@drawable/rounded_button_yellow"
-        android:text="Lanjutkan Berbelanja"
-        android:textSize="12sp"
-        android:textColor="@android:color/white" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/bttn_back"
+            android:layout_width="180dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/rounded_button_yellow"
+            android:text="Lanjutkan Berbelanja"
+            android:textSize="12sp"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/txvw_antrian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:textSize="40sp"
+            android:textColor="@color/colorPrimary" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -125,6 +140,5 @@
         </LinearLayout>
 
     </RelativeLayout>
-
 
 </LinearLayout>

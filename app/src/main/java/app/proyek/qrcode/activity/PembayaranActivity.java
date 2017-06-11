@@ -22,6 +22,7 @@ public class PembayaranActivity extends AppCompatActivity {
 
     private ImageView imgv_back;
     private TextView txvw_total;
+    private TextView txvw_antrian;
     private Button bttn_back;
     private RecyclerView rv_listItem;
     private PaymentAdapter paymentAdapter;
@@ -34,10 +35,13 @@ public class PembayaranActivity extends AppCompatActivity {
 
         imgv_back = (ImageView)findViewById(R.id.imgv_back);
         txvw_total = (TextView) findViewById(R.id.txvw_total);
+        txvw_antrian = (TextView) findViewById(R.id.txvw_antrian);
         bttn_back = (Button) findViewById(R.id.bttn_back);
         rv_listItem = (RecyclerView)findViewById(R.id.rv_listItem);
 
         cart = CartHelper.getOrder();
+        String antrian = getIntent().getStringExtra("antrian");
+        txvw_antrian.setText(antrian);
 
         paymentAdapter = new PaymentAdapter(this, cart);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -69,6 +73,7 @@ public class PembayaranActivity extends AppCompatActivity {
                     break;
                 case R.id.bttn_back:
                     startActivity(new Intent(PembayaranActivity.this, ScanActivity.class));
+                    finish();
                     break;
             }
         }

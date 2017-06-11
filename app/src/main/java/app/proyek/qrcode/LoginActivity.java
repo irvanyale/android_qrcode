@@ -73,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                             user.getAlamat(),
                             user.getTtl(),
                             user.getNo_hp(),
+                            user.getEmail(),
                             user.getNo_ktp(),
                             user.getUsername(),
                             user.getPassword());
