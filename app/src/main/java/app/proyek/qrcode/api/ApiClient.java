@@ -12,6 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     private static final String BASE_URL = "http://192.168.1.8/belanjaqr/";
+    public static final String BASE_URL_GAMBAR = "http://192.168.1.8/belanjaqr/gambar_produk/";
 
     private static OkHttpClient.Builder httpClient =
             new OkHttpClient.Builder();

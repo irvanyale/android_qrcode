@@ -32,6 +32,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rlly_cart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorGrey">
@@ -79,6 +80,21 @@
                 android:background="@drawable/rounded_button_login" />
 
         </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlly_no_cart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_no_cart"
+            android:layout_centerInParent="true"/>
 
     </RelativeLayout>
 

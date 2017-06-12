@@ -21,12 +21,14 @@ import com.google.zxing.ResultPoint;
 import com.google.zxing.client.android.BeepManager;
 
 import app.proyek.qrcode.R;
+import app.proyek.qrcode.api.ApiClient;
 import app.proyek.qrcode.helper.CartHelper;
 import app.proyek.qrcode.model.Item;
 import app.proyek.qrcode.util.Util;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,7 +56,7 @@ public class ScanActivity extends AppCompatActivity {
     private String distributorItem;
     private String stokItem;
     private int qtyItem = 1;
-    private String imgItem;
+    private String gambar;
     private List<Item> cart;
 
     @Override
@@ -132,6 +134,12 @@ public class ScanActivity extends AppCompatActivity {
         item_tanggal_masuk_barang.setText(tglProduksiItem);
         item_masa_berlaku.setText(masaBerlakuItem);
         item_distributor.setText(distributorItem);
+
+        Picasso.with(this)
+                .load(ApiClient.BASE_URL_GAMBAR + gambar)
+                .error(R.drawable.ic_image)
+                .fit()
+                .into(imgv_item);
 
         final int harga = Integer.parseInt(hargaItem);
 
@@ -219,6 +227,7 @@ public class ScanActivity extends AppCompatActivity {
         item.setMasa_berlaku(masaBerlakuItem);
         item.setDistributor(distributorItem);
         item.setStok(stokItem);
+        item.setGambar(gambar);
         item.setQty(qty);
         return item;
     }
@@ -268,7 +277,7 @@ public class ScanActivity extends AppCompatActivity {
                         masaBerlakuItem = obj.getString("masa_berlaku");
                         distributorItem = obj.getString("distributor");
                         stokItem = obj.getString("stok");
-                        //imgItem = obj.getString("img");
+                        gambar = obj.getString("gambar");
 
                         txvw_nama_item.setVisibility(View.VISIBLE);
                         bttn_add.setVisibility(View.VISIBLE);

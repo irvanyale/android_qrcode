@@ -1,5 +1,7 @@
 package app.proyek.qrcode.activity;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -55,6 +57,14 @@ public class TransaksiActivity extends AppCompatActivity {
             }
         });
 
+        transaksiAdapter.setOnClickListener(new TransaksiAdapter.setOnClickListener() {
+            @Override
+            public void onClickListener(String id) {
+                startActivity(new Intent(TransaksiActivity.this,
+                        PembayaranActivity.class).putExtra("id_transaksi", id));
+            }
+        });
+
         loadTransaksi();
     }
 
@@ -66,6 +76,10 @@ public class TransaksiActivity extends AppCompatActivity {
 
     private void loadTransaksi(){
 
+        final ProgressDialog dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading...");
+        dialog.show();
+
         Call<List<Transaksi>> call = client.getHistoryTransaksi(getUserId());
         call.enqueue(new Callback<List<Transaksi>>() {
             @Override
@@ -76,11 +90,13 @@ public class TransaksiActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(TransaksiActivity.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
                 }
+                dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<List<Transaksi>> call, Throwable t) {
                 Toast.makeText(TransaksiActivity.this, "Koneksi bermasalah", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
             }
         });
     }

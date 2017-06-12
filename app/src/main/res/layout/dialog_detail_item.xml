@@ -22,8 +22,7 @@
             android:id="@+id/imgv_item"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginLeft="20dp"
-            android:src="@mipmap/soyjoy"/>
+            android:layout_marginLeft="20dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"

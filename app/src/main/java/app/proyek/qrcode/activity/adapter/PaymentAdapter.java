@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import app.proyek.qrcode.R;
+import app.proyek.qrcode.model.DetailTransaksi;
 import app.proyek.qrcode.model.Item;
 import app.proyek.qrcode.util.Util;
 
@@ -20,9 +21,9 @@ import java.util.List;
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder>{
 
     private Context context;
-    private List<Item> listItem;
+    private List<DetailTransaksi.Detail> listItem;
 
-    public PaymentAdapter(Context context, List<Item> listItem) {
+    public PaymentAdapter(Context context, List<DetailTransaksi.Detail> listItem) {
         this.context = context;
         this.listItem = listItem;
     }
@@ -54,14 +55,19 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Item item = listItem.get(position);
+        DetailTransaksi.Detail item = listItem.get(position);
         holder.item_nama.setText(item.getNama_barang());
-        holder.item_qty.setText(item.getQty()+"");
+        holder.item_qty.setText(item.getJumlah_barang());
         holder.item_harga.setText("Rp " + Util.convertToCurrency(item.getHarga()));
     }
 
     @Override
     public int getItemCount() {
         return listItem.size();
+    }
+
+    public void setList(List<DetailTransaksi.Detail> listItem){
+        this.listItem = listItem;
+        notifyDataSetChanged();
     }
 }

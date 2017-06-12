@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -25,6 +26,7 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.View
 
     private Context context;
     private List<Transaksi> listTransaksi;
+    private setOnClickListener listener;
 
     public TransaksiAdapter(Context context, List<Transaksi> listTransaksi) {
         this.context = context;
@@ -37,12 +39,14 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.View
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
+        private RelativeLayout rlly_list;
         private TextView txvw_tgl;
         private TextView txvw_status;
         private TextView txvw_total;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            rlly_list = (RelativeLayout) itemView.findViewById(R.id.rlly_list);
             txvw_tgl = (TextView) itemView.findViewById(R.id.txvw_tgl);
             txvw_status = (TextView) itemView.findViewById(R.id.txvw_status);
             txvw_total = (TextView) itemView.findViewById(R.id.txvw_total);
@@ -57,7 +61,7 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Transaksi transaksi = listTransaksi.get(position);
+        final Transaksi transaksi = listTransaksi.get(position);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = null;
@@ -74,6 +78,15 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.View
                 ContextCompat.getColor(getContext(), android.R.color.holo_red_dark) :
                 ContextCompat.getColor(getContext(), R.color.colorMain));
         holder.txvw_total.setText("Rp " + Util.convertToCurrency(transaksi.getTotal_harga()));
+
+        holder.rlly_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null){
+                    listener.onClickListener(transaksi.getId_transaksi());
+                }
+            }
+        });
     }
 
     @Override
@@ -84,5 +97,13 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.View
     public void setList(List<Transaksi> listTransaksi){
         this.listTransaksi = listTransaksi;
         notifyDataSetChanged();
+    }
+
+    public void setOnClickListener(setOnClickListener listener){
+        this.listener = listener;
+    }
+
+    public interface setOnClickListener {
+        void onClickListener(String id);
     }
 }

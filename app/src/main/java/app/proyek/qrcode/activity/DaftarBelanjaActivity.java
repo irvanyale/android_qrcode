@@ -3,6 +3,7 @@ package app.proyek.qrcode.activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,8 @@ import java.util.List;
 
 public class DaftarBelanjaActivity extends AppCompatActivity {
 
+    private RelativeLayout rlly_cart;
+    private RelativeLayout rlly_no_cart;
     private ImageView imgv_back;
     private TextView txvw_total;
     private Button btn_checkout;
@@ -54,6 +58,8 @@ public class DaftarBelanjaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daftar_belanja);
 
+        rlly_cart = (RelativeLayout) findViewById(R.id.rlly_cart);
+        rlly_no_cart = (RelativeLayout) findViewById(R.id.rlly_no_cart);
         imgv_back = (ImageView)findViewById(R.id.imgv_back);
         txvw_total = (TextView) findViewById(R.id.txvw_total);
         btn_checkout = (Button) findViewById(R.id.btn_checkout);
@@ -71,6 +77,11 @@ public class DaftarBelanjaActivity extends AppCompatActivity {
 
         imgv_back.setOnClickListener(_handler);
         btn_checkout.setOnClickListener(_handler);
+
+        if (cart.size() == 0){
+            rlly_no_cart.setVisibility(View.VISIBLE);
+            rlly_cart.setVisibility(View.GONE);
+        }
     }
 
     private String getUserId(){
@@ -145,7 +156,9 @@ public class DaftarBelanjaActivity extends AppCompatActivity {
                 if (response.body() != null && response.isSuccessful()){
                     Antrian antrian = response.body();
                     startActivity(new Intent(DaftarBelanjaActivity.this,
-                            PembayaranActivity.class).putExtra("antrian", antrian.getNomor_antrian()));
+                            PembayaranActivity.class).putExtra("id_transaksi", antrian.getId_transaksi()));
+                    cart.clear();
+                    finish();
                 } else {
                     Toast.makeText(DaftarBelanjaActivity.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
                 }

@@ -19,7 +19,7 @@ public class DetailTransaksi {
         return detail;
     }
 
-    private static class Content {
+    public static class Content {
         private String id_transaksi;
         private String id_user;
         private String tanggal_transaksi;
@@ -57,12 +57,21 @@ public class DetailTransaksi {
         }
     }
 
-    private static class Detail {
+    public static class Detail {
         private String id_detail;
         private String id_transaksi;
         private String id_barang;
         private String harga_barang;
         private String jumlah_barang;
+        private String nama_barang;
+        private String distributor;
+        private String masa_berlaku;
+        private String tanggal_masuk_barang;
+        private String berat;
+        private String satuan;
+        private String harga;
+        private String stok;
+        private String gambar;
 
         public String getId_detail() {
             return id_detail;
@@ -82,6 +91,42 @@ public class DetailTransaksi {
 
         public String getJumlah_barang() {
             return jumlah_barang;
+        }
+
+        public String getNama_barang() {
+            return nama_barang;
+        }
+
+        public String getDistributor() {
+            return distributor;
+        }
+
+        public String getMasa_berlaku() {
+            return masa_berlaku;
+        }
+
+        public String getTanggal_masuk_barang() {
+            return tanggal_masuk_barang;
+        }
+
+        public String getBerat() {
+            return berat;
+        }
+
+        public String getSatuan() {
+            return satuan;
+        }
+
+        public String getHarga() {
+            return harga;
+        }
+
+        public String getStok() {
+            return stok;
+        }
+
+        public String getGambar() {
+            return gambar;
         }
     }
 }

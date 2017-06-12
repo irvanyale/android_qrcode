@@ -13,8 +13,8 @@ public class Item {
     private String masa_berlaku;
     private String distributor;
     private String stok;
+    private String gambar;
     private int qty;
-    private String img;
 
     public String getId_barang() {
         return id_barang;
@@ -80,12 +80,12 @@ public class Item {
         this.stok = stok;
     }
 
-    public String getImg() {
-        return img;
+    public String getGambar() {
+        return gambar;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setGambar(String gambar) {
+        this.gambar = gambar;
     }
 
     public int getQty() {
