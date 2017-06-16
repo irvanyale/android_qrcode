@@ -31,17 +31,34 @@ public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHo
         return context;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView item_nama;
         private TextView item_harga;
         private TextView item_qty;
+        private static setOnClickItemListener clicklistener;
 
         public ViewHolder(View itemView) {
             super(itemView);
             item_nama = (TextView) itemView.findViewById(R.id.item_nama);
             item_harga = (TextView) itemView.findViewById(R.id.item_harga);
             item_qty = (TextView) itemView.findViewById(R.id.item_qty);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (clicklistener != null){
+                clicklistener.OnClickItemListener(getAdapterPosition());
+            }
+        }
+
+        public static void setOnClickItemListener(setOnClickItemListener listener){
+            clicklistener = listener;
+        }
+
+        public interface setOnClickItemListener {
+            void OnClickItemListener(int position);
         }
     }
 
@@ -63,4 +80,5 @@ public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHo
     public int getItemCount() {
         return listItem.size();
     }
+
 }

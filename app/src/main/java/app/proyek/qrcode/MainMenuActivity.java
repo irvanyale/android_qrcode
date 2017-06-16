@@ -7,14 +7,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
+
+import java.util.List;
 
 import app.proyek.qrcode.R;
 import app.proyek.qrcode.activity.DaftarBelanjaActivity;
 import app.proyek.qrcode.activity.PengaturanActivity;
 import app.proyek.qrcode.activity.ScanActivity;
 import app.proyek.qrcode.activity.TransaksiActivity;
+import app.proyek.qrcode.helper.CartHelper;
+import app.proyek.qrcode.model.Item;
 
 public class MainMenuActivity extends AppCompatActivity {
 
@@ -24,6 +29,9 @@ public class MainMenuActivity extends AppCompatActivity {
     private LinearLayout lnly_bill;
     private LinearLayout lnly_logout;
     private SessionManagement session;
+    private List<Item> cart;
+    private static final int TIME_INTERVAL = 2000;
+    private long mBackPressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +45,8 @@ public class MainMenuActivity extends AppCompatActivity {
         lnly_logout = (LinearLayout)findViewById(R.id.lnly_logout);
 
         session = new SessionManagement(MainMenuActivity.this);
+
+        cart = CartHelper.getOrder();
 
         lnly_scan.setOnClickListener(_handler);
         lnly_daftarbelanja.setOnClickListener(_handler);
@@ -88,6 +98,7 @@ public class MainMenuActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         session.logoutUser();
+                        cart.clear();
                         finish();
                     }
                 })
@@ -101,5 +112,16 @@ public class MainMenuActivity extends AppCompatActivity {
         AlertDialog alertDialog = alertDialogBuilder.create();
 
         alertDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()){
+            super.onBackPressed();
+            return;
+        } else {
+            Toast.makeText(this, "Press BACK again to Exit", Toast.LENGTH_SHORT).show();
+        }
+        mBackPressed = System.currentTimeMillis();
     }
 }

@@ -1,5 +1,6 @@
 package app.proyek.qrcode.activity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,13 +11,18 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import app.proyek.qrcode.LoginActivity;
 import app.proyek.qrcode.R;
@@ -41,6 +47,8 @@ import java.util.List;
 
 public class DaftarBelanjaActivity extends AppCompatActivity {
 
+    private static final String TAG = "DaftarBelanjaActivity";
+
     private RelativeLayout rlly_cart;
     private RelativeLayout rlly_no_cart;
     private ImageView imgv_back;
@@ -52,6 +60,7 @@ public class DaftarBelanjaActivity extends AppCompatActivity {
     private List<ItemChart.Item> itemTransaksi = new ArrayList<>();
     private AlertDialog alertDialog;
     private ApiInterface client;
+    private int totalharga = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +82,16 @@ public class DaftarBelanjaActivity extends AppCompatActivity {
         rv_listItem.setLayoutManager(linearLayoutManager);
         rv_listItem.setAdapter(itemCartAdapter);
 
-        txvw_total.setText("Rp " + Util.convertToCurrency(getTotalHarga()));
+        getTotalHarga();
+
+        txvw_total.setText("Rp " + Util.convertToCurrency(String.valueOf(totalharga)));
+
+        ItemCartAdapter.ViewHolder.setOnClickItemListener(new ItemCartAdapter.ViewHolder.setOnClickItemListener() {
+            @Override
+            public void OnClickItemListener(int position) {
+                showDialogDetailItem(position);
+            }
+        });
 
         imgv_back.setOnClickListener(_handler);
         btn_checkout.setOnClickListener(_handler);
@@ -90,14 +108,14 @@ public class DaftarBelanjaActivity extends AppCompatActivity {
         return user.get(SessionManagement.KEY_ID_USER);
     }
 
-    private String getTotalHarga(){
+    private void getTotalHarga(){
         int total = 0;
 
         for (Item item : cart){
             total += Integer.parseInt(item.getHarga());
         }
 
-        return String.valueOf(total);
+        totalharga = total;
     }
 
     private ItemChart getDataTransaksi(){
@@ -110,12 +128,156 @@ public class DaftarBelanjaActivity extends AppCompatActivity {
             itemTransaksi.add(data);
         }
 
+        getTotalHarga();
+
         ItemChart itemChart = new ItemChart();
         itemChart.setId_user(getUserId());
-        itemChart.setTotal_harga(getTotalHarga());
+        itemChart.setTotal_harga(String.valueOf(totalharga));
         itemChart.setItems(itemTransaksi);
 
         return itemChart;
+    }
+
+    private int qty = 1;
+    private int qtyItem = 1;
+    private int totalHarga = 0;
+    private Item item;
+    private Dialog dialogItem = null;
+    private void showDialogDetailItem(final int position){
+        dialogItem = new Dialog(this, R.style.Theme_Dialog_Fullscreen_Margin);
+        dialogItem.setContentView(R.layout.dialog_detail_item);
+
+        Window window = dialogItem.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.CENTER;
+        window.setAttributes(wlp);
+
+        item = cart.get(position);
+
+        ImageView imgv_close = (ImageView)dialogItem.findViewById(R.id.imgv_close);
+        ImageView imgv_item = (ImageView)dialogItem.findViewById(R.id.imgv_item);
+        ImageView imgv_up = (ImageView)dialogItem.findViewById(R.id.imgv_up);
+        ImageView imgv_down = (ImageView)dialogItem.findViewById(R.id.imgv_down);
+        final TextView txvw_qty = (TextView) dialogItem.findViewById(R.id.txvw_qty);
+        final TextView item_harga = (TextView) dialogItem.findViewById(R.id.item_harga);
+        final TextView item_nama = (TextView) dialogItem.findViewById(R.id.item_nama);
+        final TextView item_distributor = (TextView) dialogItem.findViewById(R.id.item_distributor);
+        TextView item_masa_berlaku = (TextView) dialogItem.findViewById(R.id.item_masa_berlaku);
+        TextView item_tanggal_masuk_barang = (TextView) dialogItem.findViewById(R.id.item_tanggal_masuk_barang);
+        TextView item_berat = (TextView) dialogItem.findViewById(R.id.item_berat);
+        TextView item_stok = (TextView) dialogItem.findViewById(R.id.item_stok);
+        Button btn_add = (Button) dialogItem.findViewById(R.id.btn_add);
+        Button btn_delete = (Button) dialogItem.findViewById(R.id.btn_cart);
+
+        btn_add.setText("SIMPAN");
+        btn_delete.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.rounded_button_red));
+        btn_delete.setText("HAPUS");
+        btn_delete.setTextColor(ContextCompat.getColor(this, android.R.color.white));
+
+        item_nama.setText(item.getNama_barang());
+        item_harga.setText("Rp " + Util.convertToCurrency(item.getHarga()));
+        item_berat.setText(item.getBerat());
+        item_tanggal_masuk_barang.setText(item.getTanggal_masuk_barang());
+        item_masa_berlaku.setText(item.getMasa_berlaku());
+        item_distributor.setText(item.getDistributor());
+        txvw_qty.setText(String.valueOf(item.getQty()));
+
+        final int harga = Integer.parseInt(item.getHarga()) / item.getQty();
+        qty = item.getQty();
+
+        Picasso.with(this)
+                .load(ApiClient.BASE_URL_GAMBAR + item.getGambar())
+                .error(R.drawable.ic_image)
+                .fit()
+                .into(imgv_item);
+
+        imgv_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qty++;
+                totalHarga = harga * qty;
+                totalharga += totalHarga - (harga*qtyItem);
+                txvw_qty.setText(String.valueOf(qty));
+                item_harga.setText("Rp " + Util.convertToCurrency(String.valueOf(totalHarga)));
+                qtyItem = qty;
+            }
+        });
+
+        imgv_down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qty--;
+                if (qty <= 0){
+                    qty = 1;
+                }
+                totalHarga = harga * qty;
+                totalharga += totalHarga - (harga*qtyItem);
+                txvw_qty.setText(qty <= 0 ? "1" : String.valueOf(qty));
+                item_harga.setText("Rp " + Util.convertToCurrency(String.valueOf(totalHarga)));
+                qtyItem = qty;
+            }
+        });
+
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                item.setHarga(item.getHarga());
+                setItemCart(item, item);
+                itemCartAdapter.notifyDataSetChanged();
+                getTotalHarga();
+                txvw_total.setText("Rp " + Util.convertToCurrency(String.valueOf(totalharga)));
+                dialogItem.dismiss();
+            }
+        });
+
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cart.remove(position);
+                itemCartAdapter.notifyItemRemoved(position);
+                itemCartAdapter.notifyItemRangeChanged(position, cart.size());
+                totalharga = totalharga - Integer.parseInt(item.getHarga());
+                txvw_total.setText("Rp " + Util.convertToCurrency(String.valueOf(totalharga)));
+                dialogItem.dismiss();
+            }
+        });
+
+        imgv_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogItem.dismiss();
+            }
+        });
+
+        dialogItem.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                dialogItem = null;
+            }
+        });
+
+        dialogItem.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                dialogItem = null;
+            }
+        });
+
+        dialogItem.show();
+    }
+
+    private Item setItemCart(Item item, Item newItem){
+        item.setId_barang(newItem.getId_barang());
+        item.setNama_barang(newItem.getNama_barang());
+        item.setHarga(String.valueOf((Integer.parseInt(newItem.getHarga())/item.getQty())*qty));
+        item.setBerat(newItem.getBerat());
+        item.setTanggal_masuk_barang(newItem.getTanggal_masuk_barang());
+        item.setMasa_berlaku(newItem.getMasa_berlaku());
+        item.setDistributor(newItem.getDistributor());
+        item.setStok(newItem.getStok());
+        item.setGambar(newItem.getGambar());
+        item.setQty(qty);
+        return item;
     }
 
     private void showDialogTransaksi(){
